@@ -1,0 +1,41 @@
+<?php
+
+/**
+ * @file
+ * Contains adobe_field.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function adobe_field_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    case 'help.page.adobe_field':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('The Embedded Adobe Document Viewer is a module which adds a formatter to core\'s File field. The formatter uses Adobe Document Services to render PDF files and Office documents.') . '</p>';
+      return $output;
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function adobe_field_theme() {
+  return [
+    'adobe_field' => [
+      'variables' => [
+        'files' => [],
+        'initial_file' => 0,
+        'viewer_height' => 900,
+        'unique_id' => '',
+        'entity' => '',
+        'bundle' => '',
+        'field_name' => '',
+        'field_type' => '',
+      ],
+    ],
+  ];
+}

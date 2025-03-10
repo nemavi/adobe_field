@@ -1,0 +1,7 @@
+name: 'Embedded Adobe Document Viewer'
+description: 'An embedded Document viewer field using Adobe Document Services'
+dependencies:
+  - drupal:field
+core_version_requirement: ^9.3 || ^10
+type: module
+version: '1.0.0'

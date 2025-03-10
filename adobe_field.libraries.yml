@@ -1,0 +1,11 @@
+adobe-field:
+  version: VERSION
+  css:
+    theme:
+      css/adobe_field.css: {}
+  js:
+    https://acrobatservices.adobe.com/view-sdk/viewer.js: { type: external, minified: true }
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/drupalSettings
