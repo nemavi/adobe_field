@@ -1,7 +1,7 @@
 # adobe_field
 adobe_field
 Adobe Field Module forked from gdoc_field: https://git.drupalcode.org/project/gdoc_field
-Thanks to 
+Thanks to  gisle, jmarkel, Webbeh, ramblinwreck 
 
 Maintainer:
 Nemavi
