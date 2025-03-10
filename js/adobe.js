@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", function() {
   setTimeout(function() {
     settings.files.slice(1).forEach(function(file, index) {
       const view = new AdobeDC.View({
-        clientId: '99a4dd035df747d599c54077a2b252f5',
+        clientId: 'CLIENTIDHERE',
         divId: "adobe-dc-view-" + (index + 1)
       });
       view.previewFile({
@@ -68,15 +68,4 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   }, 2000); // Delay of 2 seconds before initializing additional files
 
-  // (Optional) Remove this section if not using separate .file-selector links:
-  // const fileLinks = document.querySelectorAll('.file-selector');
-  // fileLinks.forEach(function(link) {
-  //   link.addEventListener('click', function(e) {
-  //     e.preventDefault();
-  //     const url = link.getAttribute('data-file-url');
-  //     // Ensure this targets the correct iframe element if needed:
-  //     const iframe = document.getElementById('iframe-{{ delta }}');
-  //     iframe.src = url;
-  //   });
-  // });
 });
