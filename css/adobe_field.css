@@ -1,0 +1,22 @@
+.adobe-field-container {
+  margin: 1rem 0;
+}
+
+.adobe-field-selector {
+  margin-bottom: 1rem;
+}
+
+.adobe-field-selector label {
+  margin-right: 0.5rem;
+  font-weight: bold;
+}
+
+.adobe-field-viewer {
+  border: 1px solid #ccc;
+  margin: 0;
+}
+
+.adobe-field-file-selector {
+  min-width: 250px;
+  padding: 0.5rem;
+}
