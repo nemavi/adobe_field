@@ -1,0 +1,81 @@
+{# adobe-field.html.twig #}
+<div class="adobe-field-container">
+  {% if files|length > 1 %}
+    <div class="adobe-field-selector">
+      <label for="{{ unique_id }}-selector">{{ 'Select document to view:'|t }}</label>
+      <select id="{{ unique_id }}-selector" class="adobe-field-file-selector form-select">
+        {% for file in files %}
+          <option value="{{ file.delta }}" {% if file.delta == initial_file %}selected="selected"{% endif %}>
+            {{ file.filename }}
+          </option>
+        {% endfor %}
+      </select>
+    </div>
+  {% endif %}
+  
+  <div id="{{ unique_id }}" class="adobe-field-viewer" style="height: {{ viewer_height }}px; width: 100%;"></div>
+  
+  <a href="{{ file.delta }}" class="download-btn" download="{{ file.filename }}">
+    <button style="background-color: green; color: white; padding: 15px 30px; font-size: 16px; border-radius: 5px; border: none; cursor: pointer;">
+      Download {{ file.delta }}
+    </button>
+  </a>
+</div>
+
+<script type="text/javascript">
+  (function (Drupal, drupalSettings) {
+    const fieldId = '{{ unique_id }}';
+    const fieldSettings = drupalSettings.adobe_field[fieldId];
+
+    function loadDocument(fileIndex) {
+      const fileData = fieldSettings.files[fileIndex];
+      const viewerId = document.getElementById(fieldId);
+      
+      // Clear previous viewer if it exists
+      viewerId.innerHTML = '';
+      
+      // Initialize Adobe Document Services View SDK
+      document.addEventListener("adobe_dc_view_sdk.ready", function() {
+        const adobeDCView = new AdobeDC.View({
+          clientId: '99a4dd035df747d599c54077a2b252f5',
+          divId: fieldId
+        });
+        
+        adobeDCView.previewFile({
+          content: { location: { url: fileData.url } },
+          metaData: { fileName: fileData.filename }
+        }, {
+          defaultViewMode: "FIT_WIDTH",
+          showAnnotationTools: false,
+          showPrintPDF: false,
+          showFullScreenViewButton: false
+        });
+      });
+      
+      // If SDK is already loaded, trigger the event manually
+      if (window.AdobeDC) {
+        const event = document.createEvent('Event');
+        event.initEvent('adobe_dc_view_sdk.ready', true, true);
+        document.dispatchEvent(event);
+      }
+    }
+
+    // Initialize file selector change event
+    const selector = document.getElementById(`${fieldId}-selector`);
+    if (selector) {
+      selector.addEventListener('change', function() {
+        loadDocument(parseInt(this.value, 10));
+      });
+    }
+
+    // Load initial document using Drupal behaviors
+    Drupal.behaviors.adobeField = {
+      attach: function (context, settings) {
+        if (context === document && !document.adobeFieldInitialized) {
+          loadDocument(fieldSettings.initial_file);
+          document.adobeFieldInitialized = true;
+        }
+      }
+    };
+  })(Drupal, drupalSettings);
+</script>
